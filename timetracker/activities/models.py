@@ -11,7 +11,6 @@ class Activity(models.Model):
     start_datetime = models.DateTimeField(default=timezone.now)
     end_datetime = models.DateTimeField(blank=True)
 
-
     class Meta:
         verbose_name_plural = _('activities')
 
