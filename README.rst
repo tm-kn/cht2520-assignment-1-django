@@ -37,3 +37,13 @@ Start the development server
    djrun
 
 The application should be available at http://localhost:8000/.
+
+
+Run tests
+~~~~~~~~
+
+.. code:: sh
+
+    vagrant ssh
+    make lint
+    make test

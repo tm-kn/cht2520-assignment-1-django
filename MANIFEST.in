@@ -1,0 +1,4 @@
+include LICENSE *.rst
+graft timetracker
+global-exclude __pycache__
+global-exclude *.py[co]

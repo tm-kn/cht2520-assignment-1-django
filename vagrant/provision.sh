@@ -20,7 +20,7 @@ su - vagrant -c "virtualenv --python=python3 $VIRTUALENV_DIR"
 su - vagrant -c "echo $PROJECT_DIR > $VIRTUALENV_DIR/.project"
 su - vagrant -c "$PIP install --upgrade pip"
 su - vagrant -c "$PIP install --upgrade setuptools"
-su - vagrant -c "$PIP install -r $PROJECT_DIR/requirements.txt"
+su - vagrant -c "$PIP install -r $PROJECT_DIR/requirements-dev.txt"
 
 # .bashrc
 cat << EOF >> /home/vagrant/.bashrc
