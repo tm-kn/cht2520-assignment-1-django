@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
 
+    'timetracker.activities',
     'timetracker.projects',
     'timetracker.sheets',
 ]
