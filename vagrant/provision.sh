@@ -11,7 +11,7 @@ PIP=$VIRTUALENV_DIR/bin/pip
 
 
 set +e
-createdb $PROJECT_NAME
+su - vagrant -c "createdb $PROJECT_NAME"
 set -e
 
 
