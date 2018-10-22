@@ -88,6 +88,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+LOGIN_REDIRECT_URL = 'home'
+
+
 LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'Europe/London'

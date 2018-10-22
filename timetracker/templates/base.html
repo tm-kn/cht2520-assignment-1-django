@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+{% block content %}{% endblock %}
+</body>
+</html>
