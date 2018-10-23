@@ -4,7 +4,10 @@ flake8:
 isort:
 	tox -e isort
 
-lint: isort flake8
+yapf:
+	tox -e yapf
+
+lint: isort flake8 yapf
 
 test:
 	tox -e py36

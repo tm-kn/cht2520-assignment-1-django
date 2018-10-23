@@ -10,6 +10,7 @@ from timetracker.sheets.models import Sheet
 
 
 class SheetObjectMixin:
+
     @cached_property
     def sheet(self):
         return get_object_or_404(Sheet, pk=self.kwargs['sheet_pk'])
@@ -26,8 +27,7 @@ class NewActivityView(SheetObjectMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'activities:list', kwargs={'sheet_pk': self.sheet.pk}
-        )
+            'activities:list', kwargs={'sheet_pk': self.sheet.pk})
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -39,6 +39,4 @@ class ActivityListView(SheetObjectMixin, ListView):
     model = Activity
 
     def get_queryset(self):
-        return self.model.objects.filter(
-            project__sheet=self.sheet
-        )
+        return self.model.objects.filter(project__sheet=self.sheet)

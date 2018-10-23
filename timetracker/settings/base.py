@@ -6,17 +6,13 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 DEBUG = False
-
 
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
 
-
 if 'ALLOWED_HOSTS' in os.environ:
     ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',')
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,12 +22,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-
     'timetracker.activities',
     'timetracker.projects',
     'timetracker.sheets',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,30 +60,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'timetracker.wsgi.application'
 
-
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-}
-
+DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.'
+        'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
-
 LOGIN_REDIRECT_URL = 'home'
-
 
 LANGUAGE_CODE = 'en-gb'
 
@@ -101,16 +94,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_ROOT = os.environ.get('STATIC_DIR', os.path.join(BASE_DIR, 'static'))
 
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 
-
 MEDIA_ROOT = os.environ.get('MEDIA_DIR', os.path.join(BASE_DIR, 'media'))
 
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
-
 
 LOGGING = {
     'version': 1,
@@ -124,7 +114,8 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format': '[%(asctime)s][%(process)d][%(levelname)s][%(name)s] %(message)s'
+            'format':
+            '[%(asctime)s][%(process)d][%(levelname)s][%(name)s] %(message)s'
         }
     },
     'loggers': {
@@ -146,7 +137,6 @@ LOGGING = {
     },
 }
 
-
 if os.environ.get('SECURE_SSL_REDIRECT', 'true').strip().lower() == 'true':
     SECURE_SSL_REDIRECT = True
 
@@ -155,8 +145,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if 'SECURE_HSTS_SECONDS' in os.environ:
     SECURE_HSTS_SECONDS = int(os.environ['SECURE_HSTS_SECONDS'])
 
-if os.environ.get('SECURE_BROWSER_XSS_FILTER', 'true').lower().strip() == 'true':
+if os.environ.get('SECURE_BROWSER_XSS_FILTER',
+                  'true').lower().strip() == 'true':
     SECURE_BROWSER_XSS_FILTER = True
 
-if os.environ.get('SECURE_CONTENT_TYPE_NOSNIFF', 'true').lower().strip() == 'true':
+if os.environ.get('SECURE_CONTENT_TYPE_NOSNIFF',
+                  'true').lower().strip() == 'true':
     SECURE_CONTENT_TYPE_NOSNIFF = True

@@ -21,11 +21,11 @@ class Activity(models.Model):
         }
 
     def clean(self):
-        if self.end_datetime and self.start_datetime and self.end_datetime <= self.start_datetime:
+        if self.end_datetime and self.start_datetime \
+                and self.end_datetime <= self.start_datetime:
             raise ValidationError({
-                'end_datetime': [
-                    _('End datetime must be greater than the start datetime.')
-                ]
+                'end_datetime':
+                [_('End datetime must be greater than the start datetime.')]
             })
 
     @property
