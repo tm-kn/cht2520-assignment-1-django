@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Activities</h1>
+<p><a href="{% url "activities:new" sheet_pk=sheet.pk %}">New activity</a></p>
+<ul>
+{% for activity in object_list %}
+    <li>{{ activity }}</li>
+{% empty %}
+    <li>No activities</li>
+{% endfor %}
+</ul>
+{% endblock %}

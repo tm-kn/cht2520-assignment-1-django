@@ -9,7 +9,7 @@ class Activity(models.Model):
     activity = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     start_datetime = models.DateTimeField(default=timezone.now)
-    end_datetime = models.DateTimeField(blank=True)
+    end_datetime = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = _('activities')

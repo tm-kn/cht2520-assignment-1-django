@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a href="{% url 'activities:list' sheet_pk=sheet.pk %}">&laquo; Activities</a></p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add activity">
+</form>
+{% endblock %}
