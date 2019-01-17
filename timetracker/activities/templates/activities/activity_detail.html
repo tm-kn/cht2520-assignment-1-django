@@ -34,6 +34,8 @@
         <dd>{{ object.project }}</dd>
         <dt>Start time</dt>
         <dd>{{ object.start_datetime }}</dd>
+        <dt>Duration</dt>
+        <dd>{{ object.get_duration_display }}</dd>
         {% if object.end_datetime %}
             <dt>End time</dt>
             <dd>{{ object.end_datetime }}</dd>
