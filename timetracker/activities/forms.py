@@ -26,6 +26,6 @@ class ActivityForm(forms.ModelForm):
             'end_datetime',
         )
         widgets = {
-	    'start_datetime': DateTimePickerWidget(),
-	    'end_datetime': DateTimePickerWidget(),
-	}
+            'start_datetime': DateTimePickerWidget(),
+            'end_datetime': DateTimePickerWidget(),
+        }

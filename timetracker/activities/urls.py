@@ -1,10 +1,12 @@
 from django.urls import path
 
-from timetracker.activities.views import ActivityListView, NewActivityView
+from timetracker.activities.views import (ActivityCreateView,
+                                          ActivityDetailView, ActivityListView)
 
 app_name = 'activities'
 
 urlpatterns = [
     path('', ActivityListView.as_view(), name='list'),
-    path('new/', NewActivityView.as_view(), name='new'),
+    path('<int:pk>/', ActivityDetailView.as_view(), name='detail'),
+    path('create/', ActivityCreateView.as_view(), name='create'),
 ]

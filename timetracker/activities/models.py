@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -35,3 +36,6 @@ class Activity(models.Model):
     def duration(self):
         end_datetime = self.end_datetime or timezone.now()
         return end_datetime - self.start_datetime
+
+    def get_absolute_url(self):
+        return reverse('activities:detail', args=[self.id])
