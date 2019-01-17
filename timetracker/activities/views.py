@@ -9,7 +9,7 @@ from django.views.generic.detail import (DetailView, SingleObjectMixin,
 from django.views.generic.edit import BaseUpdateView, CreateView, DeleteView
 from django.views.generic.list import ListView
 
-from timetracker.activities.forms import ActivityForm, ActivityFilterForm
+from timetracker.activities.forms import ActivityFilterForm, ActivityForm
 from timetracker.activities.models import Activity
 
 
@@ -45,8 +45,8 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
                 start_of_range, end_of_range = end_of_range, start_of_range
             start_of_range = timezone.datetime.combine(
                 start_of_range, timezone.datetime.min.time())
-            end_of_range = timezone.datetime.combine(end_of_range,
-                                                    timezone.datetime.max.time())
+            end_of_range = timezone.datetime.combine(
+                end_of_range, timezone.datetime.max.time())
             qs &= super().get_queryset().filter(
                 start_datetime__gte=start_of_range,
                 start_datetime__lte=end_of_range)
@@ -55,8 +55,9 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
         if search_query:
             # Search query using Postgres full-text search.
             qs &= super().get_queryset().annotate(
-                search=SearchVector('activity', 'project', 'description'),
-            ).filter(search=search_query)
+                search=SearchVector(
+                    'activity', 'project',
+                    'description'), ).filter(search=search_query)
         return qs
 
     def get_filter_form(self):

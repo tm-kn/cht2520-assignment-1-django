@@ -8,7 +8,6 @@ class DateTimePickerWidget(forms.TextInput):
         return context
 
 
-
 class DatePickerWidget(forms.TextInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)

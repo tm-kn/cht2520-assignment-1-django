@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth import authenticate, get_user_model, login
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView

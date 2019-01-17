@@ -1,10 +1,9 @@
 from django.urls import path
 
 from timetracker.activities.views import (ActivityCreateView,
-                                          ActivityDetailView, ActivityDeleteView,
-                                          ActivityListView,
-                                          ActivityStopView,
-                                          ActivityUpdateView)
+                                          ActivityDeleteView,
+                                          ActivityDetailView, ActivityListView,
+                                          ActivityStopView, ActivityUpdateView)
 
 app_name = 'activities'
 
