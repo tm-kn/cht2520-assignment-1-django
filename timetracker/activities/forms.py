@@ -35,3 +35,4 @@ class ActivityForm(forms.ModelForm):
 class ActivityFilterForm(forms.Form):
     start_date = forms.DateField(required=False, widget=DatePickerWidget())
     end_date = forms.DateField(required=False, widget=DatePickerWidget())
+    search_query = forms.CharField(required=False)
