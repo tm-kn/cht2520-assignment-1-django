@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import View
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 
 from timetracker.activities.forms import ActivityForm
@@ -16,6 +16,10 @@ class ActivityQuerySetMixin:
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+
+class ActivitySingleObjectMixin(ActivityQuerySetMixin, SingleObjectMixin):
+    pass
 
 
 class ActivityCreateView(LoginRequiredMixin, CreateView):
@@ -47,19 +51,17 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
         return timezone.now().replace(hour=23, minute=59, second=59)
 
 
-class ActivityDetailView(LoginRequiredMixin, ActivityQuerySetMixin,
+class ActivityDetailView(LoginRequiredMixin, ActivitySingleObjectMixin,
                          DetailView):
     pass
 
 
-class ActivityStopView(LoginRequiredMixin, ActivityQuerySetMixin, SingleObjectMixin, View):
-    def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-        pk = int(self.request.POST['id'])
-        return get_object_or_404(queryset, pk=pk)
-
+class ActivityStopView(ActivitySingleObjectMixin, View):
     def post(self, *args, **kwargs):
         obj = self.get_object()
         obj.stop()
         return redirect('activities:list')
+
+
+class ActivityDeleteView(ActivitySingleObjectMixin, DeleteView):
+    success_url = reverse_lazy('activities:list')

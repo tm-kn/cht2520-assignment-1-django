@@ -9,13 +9,15 @@
             <th>Project</th>
             <th>Activity</th>
             <th>Time spent</th>
-            <th>Actions</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Stop</th>
         </thead>
         <tbody>
         {% for activity in object_list %}
             {% ifchanged activity.start_date %}
             <tr class="activity-start-date">
-                <td>
+                <td colspan="7">
                 {{ activity.start_date }}
                 </td>
             </tr>
@@ -31,14 +33,23 @@
                 <td>{{ activity.get_duration_display }}</td>
                 <td>
                     <a href="{% url 'activities:detail' activity.pk %}">
-                        <button>Edit</button>
+                        Edit
                     </a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'activities:delete' activity.pk %}">
+                        {% csrf_token %}
+                        <button class="js-delete-button">Delete</button>
+                    </form>
+                </td>
+                <td>
                     {% if activity.is_active %}
-                        <form method="post" action="{% url 'activities:stop' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ activity.pk }}">
-                            <button>Stop</button>
-                        </form>
+                        <div>
+                            <form method="post" action="{% url 'activities:stop' activity.pk %}">
+                                {% csrf_token %}
+                                <button>Stop</button>
+                            </form>
+                        </div>
                     {% endif %}
                 </td>
             </tr>
