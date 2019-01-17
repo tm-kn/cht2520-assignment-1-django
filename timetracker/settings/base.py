@@ -23,8 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'timetracker.activities',
-    'timetracker.projects',
-    'timetracker.sheets',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +80,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'activities:list'
 
 LANGUAGE_CODE = 'en-gb'
 

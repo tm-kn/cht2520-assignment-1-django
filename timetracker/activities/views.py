@@ -1,42 +1,29 @@
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils.functional import cached_property
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 from timetracker.activities.forms import ActivityForm
 from timetracker.activities.models import Activity
-from timetracker.sheets.models import Sheet
 
 
-class SheetObjectMixin:
-
-    @cached_property
-    def sheet(self):
-        return get_object_or_404(Sheet, pk=self.kwargs['sheet_pk'])
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['sheet'] = self.sheet
-        return context
-
-
-class NewActivityView(SheetObjectMixin, CreateView):
+class NewActivityView(LoginRequiredMixin ,CreateView):
     form_class = ActivityForm
     template_name = 'activities/new.html'
 
     def get_success_url(self):
-        return reverse_lazy(
-            'activities:list', kwargs={'sheet_pk': self.sheet.pk})
+        return reverse_lazy('activities:list')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs.update({'sheet': self.sheet})
+        kwargs.update({
+            'user': self.request.user
+        })
         return kwargs
 
 
-class ActivityListView(SheetObjectMixin, ListView):
+class ActivityListView(LoginRequiredMixin, ListView):
     model = Activity
 
     def get_queryset(self):
-        return self.model.objects.filter(project__sheet=self.sheet)
+        return self.model.objects.filter(user=self.request.user)

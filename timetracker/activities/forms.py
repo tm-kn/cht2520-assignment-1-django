@@ -4,12 +4,16 @@ from timetracker.activities.models import Activity
 
 
 class ActivityForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
-        sheet = kwargs.pop('sheet')
+        self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-        self.fields['project'].queryset = (
-            self.fields['project'].queryset.filter(sheet=sheet))
+
+    def save(self, commit=True):
+        activity = super().save(commit=False)
+        activity.user = self.user
+        if commit:
+            activity.save()
+        return activity
 
     class Meta:
         model = Activity

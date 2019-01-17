@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -5,9 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Activity(models.Model):
-    project = models.ForeignKey('projects.Project', models.PROTECT)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.PROTECT, related_name='activities')
     activity = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    project = models.CharField(max_length=255, db_index=True)
     start_datetime = models.DateTimeField(default=timezone.now)
     end_datetime = models.DateTimeField(blank=True, null=True)
 
@@ -17,7 +20,7 @@ class Activity(models.Model):
     def __str__(self):
         return _('%(activity)s@%(project)s') % {
             'activity': self.activity,
-            'project': self.project.name,
+            'project': self.project,
         }
 
     def clean(self):
