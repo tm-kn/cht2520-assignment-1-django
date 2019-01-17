@@ -38,7 +38,6 @@ class Activity(models.Model):
         end_datetime = self.end_datetime or timezone.now()
         return end_datetime - self.start_datetime
 
-
     def get_duration_display(self):
         duration_seconds = self.duration.total_seconds()
         hours = int(duration_seconds / 3600)
@@ -69,7 +68,8 @@ class Activity(models.Model):
             raise RuntimeError('Activity must be active in order to stop it')
         # If activity is less than a minute, delete it
         self.end_datetime = timezone.now()
-        if (self.end_datetime - self.start_datetime) < timezone.timedelta(minutes=1):
+        if (self.end_datetime - self.start_datetime) < timezone.timedelta(
+                minutes=1):
             self.delete()
             return
         self.save(update_fields=['end_datetime'])
