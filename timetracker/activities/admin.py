@@ -5,4 +5,5 @@ from timetracker.activities.models import Activity
 
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('user',)
+    search_fields = ('project', 'activity', 'description',)
