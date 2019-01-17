@@ -1,4 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{ object.activity }}</h1>
+<ul>
+    <li>
+        <a href="{% url 'activities:update' activity.pk %}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form method="post" action="{% url 'activities:delete' activity.pk %}">
+            {% csrf_token %}
+            <button class="js-delete-button">Delete</button>
+        </form>
+    </li>
+    {% if object.is_active %}
+    <li>
+        <div>
+            <form method="post" action="{% url 'activities:stop' activity.pk %}">
+                {% csrf_token %}
+                <button>Stop</button>
+            </form>
+        </div>
+    </li>
+    {% endif %}
+</ul>
+<div>
+    <dl>
+        <dt>ID</dt>
+        <dd>{{ object.pk }}</dd>
+        <dt>Activity</dt>
+        <dd>{{ object.activity }}</dd>
+        <dt>Project</dt>
+        <dd>{{ object.project }}</dd>
+        <dt>Start time</dt>
+        <dd>{{ object.start_datetime }}</dd>
+        {% if object.end_datetime %}
+            <dt>End time</dt>
+            <dd>{{ object.end_datetime }}</dd>
+        {% endif %}
+        {% if description %}
+            <dt>Description</dt>
+            <dd>{{ object.description|linebreaks }}</dd>
+        {% endif %}
+    </dl>
+</div>
 {% endblock %}

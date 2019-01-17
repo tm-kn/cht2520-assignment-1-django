@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<p><a href="{% url 'activities:list' %}">&laquo; Activities</a></p>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
