@@ -18,7 +18,7 @@
     "webpack-cli": "^3.2.1"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
