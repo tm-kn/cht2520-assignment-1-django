@@ -17,6 +17,7 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = _('activities')
+        ordering = ['-start_datetime']
 
     def __str__(self):
         return _('%(activity)s@%(project)s') % {
@@ -37,5 +38,34 @@ class Activity(models.Model):
         end_datetime = self.end_datetime or timezone.now()
         return end_datetime - self.start_datetime
 
+
+    def get_duration_display(self):
+        duration_seconds = self.duration.total_seconds()
+        hours = int(duration_seconds / 3600)
+        minutes = int((duration_seconds % 3600) / 60)
+        return f"{hours} h {minutes} min."
+
+    @property
+    def start_date(self):
+        return self.start_datetime.date()
+
+    @property
+    def start_time(self):
+        return self.start_datetime.time()
+
+    @property
+    def end_time(self):
+        if self.end_datetime:
+            return self.end_datetime.time()
+
     def get_absolute_url(self):
         return reverse('activities:detail', args=[self.id])
+
+    def is_active(self):
+        return self.end_datetime is None
+
+    def stop(self):
+        if not self.is_active():
+            raise RuntimeError('Activity must be active in order to stop it')
+        self.end_datetime = timezone.now()
+        self.save(update_fields=['end_datetime'])

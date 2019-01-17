@@ -2,15 +2,50 @@
 {% block content %}
 <h1>Activities</h1>
 <p><a href="{% url "activities:create" %}">New activity</a></p>
-<ul>
-{% for activity in object_list %}
-    <li>
-		<a href="{{ activity.get_absolute_url }}">
-			{{ activity }}
-		</a>
-	</li>
-{% empty %}
-    <li>No activities</li>
-{% endfor %}
-</ul>
+{% if object_list %}
+    <table class="activities-table">
+        <thead>
+            <th>Time</th>
+            <th>Project</th>
+            <th>Activity</th>
+            <th>Time spent</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+        {% for activity in object_list %}
+            {% ifchanged activity.start_date %}
+            <tr class="activity-start-date">
+                <td>
+                {{ activity.start_date }}
+                </td>
+            </tr>
+            {% endifchanged %}
+            <tr>
+                <td>
+                    {{ activity.start_time }}{% if activity.end_time %}- {{ activity.end_time }}{% endif %}
+                </td>
+                <td>{{ activity.project }}</td>
+                <td>
+                    {{ activity.activity }}
+                </td>
+                <td>{{ activity.get_duration_display }}</td>
+                <td>
+                    <a href="{% url 'activities:detail' activity.pk %}">
+                        <button>Edit</button>
+                    </a>
+                    {% if activity.is_active %}
+                        <form method="post" action="{% url 'activities:stop' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ activity.pk }}">
+                            <button>Stop</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No activities found.</p>
+{% endif %}
+
 {% endblock %}
