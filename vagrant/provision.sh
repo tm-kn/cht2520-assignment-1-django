@@ -39,3 +39,7 @@ EOF
 # Install node.js and npm
 curl -sSL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install -y nodejs
+
+# Compile static
+su - vagrant -c "cd $PROJECT_DIR && npm i"
+su - vagrant -c "cd $PROJECT_DIR && make static"

@@ -27,3 +27,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+
+# Front-end
+static_compiled/

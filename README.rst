@@ -39,6 +39,13 @@ Start the development server
 The application should be available at http://localhost:8000/.
 
 
+Compile static files
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: sh
+   make static
+
+
 Run tests
 ~~~~~~~~
 

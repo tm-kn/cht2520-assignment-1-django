@@ -12,4 +12,7 @@ lint: isort flake8 yapf
 test:
 	tox -e py36
 
-.PHONY: flake8 isort lint test
+static:
+	npm run build
+
+.PHONY: flake8 isort lint test static

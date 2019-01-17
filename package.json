@@ -1,0 +1,31 @@
+{
+  "name": "timetracker",
+  "version": "1.0.0",
+  "description": "time tracker ============",
+  "private": true,
+  "dependencies": {
+    "flatpickr": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/advanced-web/assignment-1-spring-tm-kn.git"
+  },
+  "author": "Tomasz Knapik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/advanced-web/assignment-1-spring-tm-kn/issues"
+  },
+  "homepage": "https://github.com/advanced-web/assignment-1-spring-tm-kn#readme"
+}

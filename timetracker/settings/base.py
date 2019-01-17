@@ -96,6 +96,10 @@ STATIC_ROOT = os.environ.get('STATIC_DIR', os.path.join(BASE_DIR, 'static'))
 
 STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_compiled'),
+]
+
 MEDIA_ROOT = os.environ.get('MEDIA_DIR', os.path.join(BASE_DIR, 'media'))
 
 MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')

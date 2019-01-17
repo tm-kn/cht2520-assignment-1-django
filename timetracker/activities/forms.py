@@ -1,6 +1,7 @@
 from django import forms
 
 from timetracker.activities.models import Activity
+from timetracker.utils.widgets import DateTimePickerWidget
 
 
 class ActivityForm(forms.ModelForm):
@@ -24,3 +25,7 @@ class ActivityForm(forms.ModelForm):
             'start_datetime',
             'end_datetime',
         )
+        widgets = {
+	    'start_datetime': DateTimePickerWidget(),
+	    'end_datetime': DateTimePickerWidget(),
+	}
