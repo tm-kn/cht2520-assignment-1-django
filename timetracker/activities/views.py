@@ -3,7 +3,6 @@ from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.utils.dateparse import parse_date
 from django.views.generic import View
 from django.views.generic.detail import (DetailView, SingleObjectMixin,
                                          SingleObjectTemplateResponseMixin)
