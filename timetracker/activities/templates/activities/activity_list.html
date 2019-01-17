@@ -2,6 +2,11 @@
 {% block content %}
 <h1>Activities</h1>
 <p><a href="{% url "activities:create" %}">New activity</a></p>
+<h2>Filter</h2>
+<form>
+    {{ filter_form.as_p }}
+    <button>Filter</button>
+</form>
 {% if object_list %}
     <table class="activities-table">
         <thead>

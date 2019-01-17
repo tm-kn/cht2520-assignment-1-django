@@ -1,4 +1,4 @@
-import setupDatePicker from '@components/datepicker';
+import setupDatePicker from '@components/datePicker';
 import setupDeleteButton from '@components/deleteButton';
 
 document.addEventListener('DOMContentLoaded', () => {

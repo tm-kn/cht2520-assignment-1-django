@@ -43,6 +43,8 @@ Compile static files
 ~~~~~~~~~~~~~~~~~~~~
 
 .. code:: sh
+   vagrant ssh
+   npm install
    make static
 
 
