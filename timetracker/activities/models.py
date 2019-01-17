@@ -67,5 +67,9 @@ class Activity(models.Model):
     def stop(self):
         if not self.is_active():
             raise RuntimeError('Activity must be active in order to stop it')
+        # If activity is less than a minute, delete it
         self.end_datetime = timezone.now()
+        if (self.end_datetime - self.start_datetime) < timezone.timedelta(minutes=1):
+            self.delete()
+            return
         self.save(update_fields=['end_datetime'])

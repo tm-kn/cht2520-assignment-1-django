@@ -6,12 +6,13 @@ from timetracker.utils.widgets import DateTimePickerWidget
 
 class ActivityForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
     def save(self, commit=True):
         activity = super().save(commit=False)
-        activity.user = self.user
+        if self.user is not None:
+            activity.user = self.user
         if commit:
             activity.save()
         return activity

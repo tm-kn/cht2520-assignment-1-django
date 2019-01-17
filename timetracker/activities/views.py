@@ -3,8 +3,8 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import View
-from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.detail import DetailView, SingleObjectMixin, SingleObjectTemplateResponseMixin
+from django.views.generic.edit import CreateView, DeleteView, BaseUpdateView
 from django.views.generic.list import ListView
 
 from timetracker.activities.forms import ActivityForm
@@ -54,6 +54,12 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
 class ActivityDetailView(LoginRequiredMixin, ActivitySingleObjectMixin,
                          DetailView):
     pass
+
+
+class ActivityUpdateView(LoginRequiredMixin, ActivitySingleObjectMixin,
+                         SingleObjectTemplateResponseMixin, BaseUpdateView):
+    form_class = ActivityForm
+    template_name = 'activities/activity_update.html'
 
 
 class ActivityStopView(ActivitySingleObjectMixin, View):
