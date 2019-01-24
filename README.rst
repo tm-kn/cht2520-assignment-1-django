@@ -1,13 +1,16 @@
 time tracker
 ============
 
+This is a web application of a web tracker written in Python using the Django
+web framework.
+
 Set up local environment
 ------------------------
 
 Requirements to run the project VM are:
 
 - Vagrant
-- VitrualBox
+- VirtualBox
 
 .. code:: sh
 
@@ -43,6 +46,7 @@ Compile static files
 ~~~~~~~~~~~~~~~~~~~~
 
 .. code:: sh
+
    vagrant ssh
    npm install
    make static
@@ -53,6 +57,6 @@ Run tests
 
 .. code:: sh
 
-    vagrant ssh
-    make lint
-    make test
+   vagrant ssh
+   make lint
+   make test
