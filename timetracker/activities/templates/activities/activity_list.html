@@ -5,19 +5,19 @@
 <h2>Filter</h2>
 <form>
     {{ filter_form.as_p }}
-    <button>Filter</button>
+    <button>{{_('Filter')}}</button>
 </form>
 {% if object_list %}
     <table class="activities-table">
         <thead>
-            <th>Time</th>
-            <th>Project</th>
-            <th>Activity</th>
-            <th>Time spent</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            <th>Stop</th>
+            <th>{{_('Time')}}</th>
+            <th>{{_('Project')}}</th>
+            <th>{{_('Activity')}}</th>
+            <th>{{_('Time spent')}}</th>
+            <th>{{_('View')}}</th>
+            <th>{{_('Edit')}}</th>
+            <th>{{_('Delete')}}</th>
+            <th>{{_('Stop')}}</th>
         </thead>
         <tbody>
         {% for activity in object_list %}
@@ -39,18 +39,18 @@
                 <td>{{ activity.get_duration_display }}</td>
                 <td>
                     <a href="{{ activity.get_absolute_url }}">
-                        View
+                        {{_('View')}}
                     </a>
                 </td>
                 <td>
                     <a href="{% url 'activities:update' activity.pk %}">
-                        Edit
+                        {{_('Edit')}}
                     </a>
                 </td>
                 <td>
                     <form method="post" action="{% url 'activities:delete' activity.pk %}">
                         {% csrf_token %}
-                        <button class="js-delete-button">Delete</button>
+                        <button class="js-delete-button">{{_('Delete')}}</button>
                     </form>
                 </td>
                 <td>
@@ -58,7 +58,7 @@
                         <div>
                             <form method="post" action="{% url 'activities:stop' activity.pk %}">
                                 {% csrf_token %}
-                                <button>Stop</button>
+                                <button>{{_('Stop')}}</button>
                             </form>
                         </div>
                     {% endif %}
@@ -67,7 +67,7 @@
         {% endfor %}
     </table>
 {% else %}
-    <p>No activities found.</p>
+    <p>{{_('No activities found.')}}</p>
 {% endif %}
 
 {% endblock %}

@@ -1,19 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{_('Log in')}}{% endblock %}
 
 {% block content %}
 
-<p><a href="{% url 'register' %}">Don't have an account? Register.</a></p>
+<p><a href="{% url 'register' %}">{{_('Don\'t have an account? Register.')}}</a></p>
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<p>{{_('Your username and password didn\'t match. Please try again.')}}</p>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>{% blocktrans %}Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.{% endblocktrans %}</p>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>{{_('Please login to see this page.')}}</p>
     {% endif %}
 {% endif %}
 
@@ -30,11 +33,11 @@
 </tr>
 </table>
 
-<input type="submit" value="Login">
+<input type="submit" value="{{_('Login')}}">
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p><a href="{% url 'password_reset' %}">{{_('Lost password?')}}</a></p>
 
 {% endblock %}

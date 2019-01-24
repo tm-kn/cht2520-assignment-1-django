@@ -2,16 +2,18 @@
 
 <html>
 <head>
+    <title>{% block title %}timetracker{% endblock %}</title>
+    <meta charset="UTF-8">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home' %}">{{_('Home')}}</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Log out</a></li>
+                <li><a href="{% url 'logout' %}">{{_('Log out')}}</a></li>
                 {% else %}
-                <li><a href="{% url 'login' %}">Log in</a></li>
+                <li><a href="{% url 'login' %}">{{_('Log in')}}</a></li>
                 {% endif %}
             </ul>
         </nav>

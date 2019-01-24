@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>You've been logged out</h1>
-    <p><a href="{% url 'home' %}">Go back to the homepage</a>.</p>
+    <h1>{{ _('You\'ve been logged out') }}</h1>
+    <p><a href="{% url 'home' %}">{{ _('Go back to the homepage') }}</a>.</p>
 {% endblock %}

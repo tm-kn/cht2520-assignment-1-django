@@ -4,13 +4,13 @@
 <ul>
     <li>
         <a href="{% url 'activities:update' activity.pk %}">
-            Edit
+            {{_('Edit')}}
         </a>
     </li>
     <li>
         <form method="post" action="{% url 'activities:delete' activity.pk %}">
             {% csrf_token %}
-            <button class="js-delete-button">Delete</button>
+            <button class="js-delete-button">{{_('Delete')}}</button>
         </form>
     </li>
     {% if object.is_active %}
@@ -18,7 +18,7 @@
         <div>
             <form method="post" action="{% url 'activities:stop' activity.pk %}">
                 {% csrf_token %}
-                <button>Stop</button>
+                <button>{{_('Stop')}}</button>
             </form>
         </div>
     </li>
@@ -26,22 +26,22 @@
 </ul>
 <div>
     <dl>
-        <dt>ID</dt>
+        <dt>{{_('ID')}}</dt>
         <dd>{{ object.pk }}</dd>
-        <dt>Activity</dt>
+        <dt>{{_('Activity')}}</dt>
         <dd>{{ object.activity }}</dd>
-        <dt>Project</dt>
+        <dt>{{_('Project')}}</dt>
         <dd>{{ object.project }}</dd>
-        <dt>Start time</dt>
+        <dt>{{_('Start time')}}</dt>
         <dd>{{ object.start_datetime }}</dd>
-        <dt>Duration</dt>
+        <dt>{{_('Duration')}}</dt>
         <dd>{{ object.get_duration_display }}</dd>
         {% if object.end_datetime %}
-            <dt>End time</dt>
+            <dt>{{_('End time')}}</dt>
             <dd>{{ object.end_datetime }}</dd>
         {% endif %}
-        {% if description %}
-            <dt>Description</dt>
+        {% if object.description %}
+            <dt>{{_('Description')}}</dt>
             <dd>{{ object.description|linebreaks }}</dd>
         {% endif %}
     </dl>
