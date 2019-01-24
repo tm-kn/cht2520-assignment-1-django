@@ -1,9 +1,33 @@
 {% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}Editting {{ object }}{% endblock %}
+
 {% block content %}
-<h1>Editting {{ object }}</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="{{_('Save activity')}}">
-</form>
+<section class="section">
+    <div class="container">
+        <h1 class="title">{% blocktrans %}Editting {{ object }}{% endblocktrans %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    {{ field.label_tag }}
+                </div>
+                <div class="field-body">
+                    <p class="control">
+                        {{ field }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="field">
+                <p class="control">
+                    <input class="button is-primary" type="submit" value="{{_('Save activity')}}">
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
 {% endblock %}

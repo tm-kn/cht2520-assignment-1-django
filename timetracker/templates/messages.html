@@ -1,14 +1,9 @@
 {% if messages %}
 <div class="container">
     {% for message in messages %}
-        <article class="message is-{{ message.tags }}">
-        <div class="message-header">
-            <p>{{ _('Message') }}</p>
-        </div>
-        <div class="message-body">
+        <div class="notification is-{{ message.tags }}">
             {{ message }}
         </div>
-        </article>
     {% endfor %}
 </div>
 {% endif %}
