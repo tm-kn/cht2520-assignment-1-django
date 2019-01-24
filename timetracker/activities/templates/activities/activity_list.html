@@ -46,14 +46,16 @@
         {% if object_list %}
         <table class="table activities-table">
             <thead>
-                <th>{{_('Time')}}</th>
-                <th>{{_('Project')}}</th>
-                <th>{{_('Activity')}}</th>
-                <th>{{_('Time spent')}}</th>
-                <th>{{_('View')}}</th>
-                <th>{{_('Edit')}}</th>
-                <th>{{_('Delete')}}</th>
-                <th>{{_('Stop')}}</th>
+                <tr>
+                    <th>{{_('Time')}}</th>
+                    <th>{{_('Project')}}</th>
+                    <th>{{_('Activity')}}</th>
+                    <th>{{_('Time spent')}}</th>
+                    <th>{{_('View')}}</th>
+                    <th>{{_('Edit')}}</th>
+                    <th>{{_('Delete')}}</th>
+                    <th>{{_('Stop')}}</th>
+                </tr>
             </thead>
             <tbody>
             {% for activity in object_list %}
