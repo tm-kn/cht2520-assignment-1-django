@@ -1,49 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ object.activity }}</h1>
-<ul>
-    <li>
-        <a href="{% url 'activities:update' activity.pk %}">
-            {{_('Edit')}}
-        </a>
-    </li>
-    <li>
-        <form method="post" action="{% url 'activities:delete' activity.pk %}">
-            {% csrf_token %}
-            <button class="js-delete-button">{{_('Delete')}}</button>
-        </form>
-    </li>
-    {% if object.is_active %}
-    <li>
-        <div>
-            <form method="post" action="{% url 'activities:stop' activity.pk %}">
-                {% csrf_token %}
-                <button>{{_('Stop')}}</button>
-            </form>
+<section class="section">
+    <div class="container">
+        <h1 class="title">{{ object.activity }}</h1>
+        <div class="field is-grouped is-groupped-multiline">
+            <p class="control">
+                <a class="button is-link" href="{% url 'activities:update' activity.pk %}">
+                    {{_('Edit')}}
+                </a>
+            </p>
+            <p class="control">
+                <form method="post" action="{% url 'activities:delete' activity.pk %}">
+                    {% csrf_token %}
+                    <button class="button is-danger js-delete-button">{{_('Delete')}}</button>
+                </form>
+            </p>
+            {% if object.is_active %}
+            <p class="control">
+                <div>
+                    <form method="post" action="{% url 'activities:stop' activity.pk %}">
+                        {% csrf_token %}
+                        <button class="button is-primary">{{_('Stop')}}</button>
+                    </form>
+                </div>
+            </p>
+            {% endif %}
         </div>
-    </li>
-    {% endif %}
-</ul>
-<div>
-    <dl>
-        <dt>{{_('ID')}}</dt>
-        <dd>{{ object.pk }}</dd>
-        <dt>{{_('Activity')}}</dt>
-        <dd>{{ object.activity }}</dd>
-        <dt>{{_('Project')}}</dt>
-        <dd>{{ object.project }}</dd>
-        <dt>{{_('Start time')}}</dt>
-        <dd>{{ object.start_datetime }}</dd>
-        <dt>{{_('Duration')}}</dt>
-        <dd>{{ object.get_duration_display }}</dd>
-        {% if object.end_datetime %}
-            <dt>{{_('End time')}}</dt>
-            <dd>{{ object.end_datetime }}</dd>
-        {% endif %}
-        {% if object.description %}
-            <dt>{{_('Description')}}</dt>
-            <dd>{{ object.description|linebreaks }}</dd>
-        {% endif %}
-    </dl>
-</div>
+        <dl class="content is-medium">
+            <dt>{{_('ID')}}</dt>
+            <dd>{{ object.pk }}</dd>
+            <dt>{{_('Activity')}}</dt>
+            <dd>{{ object.activity }}</dd>
+            <dt>{{_('Project')}}</dt>
+            <dd>{{ object.project }}</dd>
+            <dt>{{_('Start time')}}</dt>
+            <dd>{{ object.start_datetime }}</dd>
+            <dt>{{_('Duration')}}</dt>
+            <dd>{{ object.get_duration_display }}</dd>
+            {% if object.end_datetime %}
+                <dt>{{_('End time')}}</dt>
+                <dd>{{ object.end_datetime }}</dd>
+            {% endif %}
+            {% if object.description %}
+                <dt>{{_('Description')}}</dt>
+                <dd>{{ object.description|linebreaks }}</dd>
+            {% endif %}
+        </dl>
+    </div>
+</section>
 {% endblock %}
