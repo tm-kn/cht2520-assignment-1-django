@@ -1,0 +1,22 @@
+<header>
+    <nav class="navbar" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'home' %}">timetracker</a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-navbar-items">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="main-navbar-items" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="{% url 'home' %}" class="navbar-item">{{_('Home')}}</a>
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="navbar-item">{{_('Log out')}}</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="navbar-item">{{_('Log in')}}</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

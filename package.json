@@ -4,6 +4,7 @@
   "description": "time tracker ============",
   "private": true,
   "dependencies": {
+    "bulma": "^0.7.2",
     "flatpickr": "^4.5.2"
   },
   "devDependencies": {
