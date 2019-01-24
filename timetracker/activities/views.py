@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 from django.views.generic import View
 from django.views.generic.detail import (DetailView, SingleObjectMixin,
                                          SingleObjectTemplateResponseMixin)
@@ -33,6 +35,11 @@ class ActivityCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, _('Successfuly created an activity.'))
+        return response
 
 
 class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
@@ -92,13 +99,24 @@ class ActivityUpdateView(LoginRequiredMixin, ActivitySingleObjectMixin,
     form_class = ActivityForm
     template_name = 'activities/activity_update.html'
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, _('Successfuly updated an activity.'))
+        return response
+
 
 class ActivityStopView(ActivitySingleObjectMixin, View):
     def post(self, *args, **kwargs):
         obj = self.get_object()
         obj.stop()
+        messages.success(self.request, _('Successfuly stopped an activity.'))
         return redirect('activities:list')
 
 
 class ActivityDeleteView(ActivitySingleObjectMixin, DeleteView):
     success_url = reverse_lazy('activities:list')
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        messages.success(self.request, _('Successfuly deleted an activity'))
+        return response
