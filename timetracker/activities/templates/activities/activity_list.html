@@ -1,73 +1,113 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Activities</h1>
-<p><a href="{% url "activities:create" %}">New activity</a></p>
-<h2>Filter</h2>
-<form>
-    {{ filter_form.as_p }}
-    <button>{{_('Filter')}}</button>
-</form>
-{% if object_list %}
-    <table class="activities-table">
-        <thead>
-            <th>{{_('Time')}}</th>
-            <th>{{_('Project')}}</th>
-            <th>{{_('Activity')}}</th>
-            <th>{{_('Time spent')}}</th>
-            <th>{{_('View')}}</th>
-            <th>{{_('Edit')}}</th>
-            <th>{{_('Delete')}}</th>
-            <th>{{_('Stop')}}</th>
-        </thead>
-        <tbody>
-        {% for activity in object_list %}
-            {% ifchanged activity.start_date %}
-            <tr class="activity-start-date">
-                <td colspan="8">
-                {{ activity.start_date }}
-                </td>
-            </tr>
-            {% endifchanged %}
-            <tr>
-                <td>
-                    {{ activity.start_time }}{% if activity.end_time %}- {{ activity.end_time }}{% endif %}
-                </td>
-                <td>{{ activity.project }}</td>
-                <td>
-                    {{ activity.activity }}
-                </td>
-                <td>{{ activity.get_duration_display }}</td>
-                <td>
-                    <a href="{{ activity.get_absolute_url }}">
-                        {{_('View')}}
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'activities:update' activity.pk %}">
-                        {{_('Edit')}}
-                    </a>
-                </td>
-                <td>
-                    <form method="post" action="{% url 'activities:delete' activity.pk %}">
-                        {% csrf_token %}
-                        <button class="js-delete-button">{{_('Delete')}}</button>
-                    </form>
-                </td>
-                <td>
-                    {% if activity.is_active %}
-                        <div>
-                            <form method="post" action="{% url 'activities:stop' activity.pk %}">
-                                {% csrf_token %}
-                                <button>{{_('Stop')}}</button>
-                            </form>
-                        </div>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p>{{_('No activities found.')}}</p>
-{% endif %}
+<section class="section">
+    <div class="container level">
+        <div class="level-left">
+            <div classs="level-item">
+                <h1 class="title">{{ _('Activities') }}</h1>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <a class="button is-primary" href="{% url "activities:create" %}">
+                    {{_('New activity')}}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container level">
+        <div class="level-left">
+            <div class="level-item">
+                <h2 class="subtitle">Filter</h2>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <form method="get">
+                    <div class="field is-grouped is-grouped-multiline">
+                    {% for field in filter_form %}
+                    <p class="control">
+                        {{ field.label_tag }} {{ field }}
+                    </p>
+                    {% endfor %}
+                    <p class="control">
+                        <button class="button is-primary">{{_('Filter')}}</button>
+                    </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        {% if object_list %}
+        <table class="table activities-table">
+            <thead>
+                <th>{{_('Time')}}</th>
+                <th>{{_('Project')}}</th>
+                <th>{{_('Activity')}}</th>
+                <th>{{_('Time spent')}}</th>
+                <th>{{_('View')}}</th>
+                <th>{{_('Edit')}}</th>
+                <th>{{_('Delete')}}</th>
+                <th>{{_('Stop')}}</th>
+            </thead>
+            <tbody>
+            {% for activity in object_list %}
+                {% ifchanged activity.start_date %}
+                <tr class="activity-start-date">
+                    <td colspan="8">
+                    {{ activity.start_date }}
+                    </td>
+                </tr>
+                {% endifchanged %}
+                <tr>
+                    <td>
+                        {{ activity.start_time }}{% if activity.end_time %}- {{ activity.end_time }}{% endif %}
+                    </td>
+                    <td>{{ activity.project }}</td>
+                    <td>
+                        {{ activity.activity }}
+                    </td>
+                    <td>{{ activity.get_duration_display }}</td>
+                    <td>
+                        <a class="button is-link" href="{{ activity.get_absolute_url }}">
+                            {{_('View')}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="button is-link" href="{% url 'activities:update' activity.pk %}">
+                            {{_('Edit')}}
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'activities:delete' activity.pk %}">
+                            {% csrf_token %}
+                            <button class="button is-danger js-delete-button">{{_('Delete')}}</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% if activity.is_active %}
+                            <div>
+                                <form method="post" action="{% url 'activities:stop' activity.pk %}">
+                                    {% csrf_token %}
+                                    <button class="button is-primary">{{_('Stop')}}</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <div class="notification is-info">
+            {{_('No activities found.')}}
+        </div>
+        {% endif %}
+    </div>
+</section>
 
 {% endblock %}
