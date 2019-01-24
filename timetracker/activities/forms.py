@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from timetracker.activities.models import Activity
 from timetracker.utils.widgets import DatePickerWidget, DateTimePickerWidget
@@ -33,6 +34,8 @@ class ActivityForm(forms.ModelForm):
 
 
 class ActivityFilterForm(forms.Form):
-    start_date = forms.DateField(required=False, widget=DatePickerWidget())
-    end_date = forms.DateField(required=False, widget=DatePickerWidget())
-    search_query = forms.CharField(required=False)
+    start_date = forms.DateField(
+        required=False, widget=DatePickerWidget(), label=_('Start date'))
+    end_date = forms.DateField(
+        required=False, widget=DatePickerWidget(), label=_('End date'))
+    search_query = forms.CharField(required=False, label=_('Search query'))

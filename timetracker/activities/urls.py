@@ -1,9 +1,12 @@
 from django.urls import path
 
+# yapf: disable
 from timetracker.activities.views import (ActivityCreateView,
                                           ActivityDeleteView,
                                           ActivityDetailView, ActivityListView,
                                           ActivityStopView, ActivityUpdateView)
+
+# yapf: enable
 
 app_name = 'activities'
 

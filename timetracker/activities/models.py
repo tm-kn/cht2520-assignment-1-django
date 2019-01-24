@@ -8,14 +8,21 @@ from django.utils.translation import ugettext_lazy as _
 
 class Activity(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, models.PROTECT, related_name='activities')
-    activity = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
-    project = models.CharField(max_length=255, db_index=True)
-    start_datetime = models.DateTimeField(default=timezone.now)
-    end_datetime = models.DateTimeField(blank=True, null=True)
+        settings.AUTH_USER_MODEL,
+        models.PROTECT,
+        related_name='activities',
+        verbose_name=_('user'))
+    activity = models.CharField(max_length=255, verbose_name=_('activity'))
+    description = models.TextField(blank=True, verbose_name=_('description'))
+    project = models.CharField(
+        max_length=255, db_index=True, verbose_name=_('project'))
+    start_datetime = models.DateTimeField(
+        default=timezone.now, verbose_name=_('start time'))
+    end_datetime = models.DateTimeField(
+        blank=True, null=True, verbose_name=_('end time'))
 
     class Meta:
+        verbose_name = _('activity')
         verbose_name_plural = _('activities')
         ordering = ['-start_datetime']
 
