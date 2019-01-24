@@ -11,15 +11,15 @@
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
-            <div class="field is-horizontal">
-                <div class="field-label">
-                    {{ field.label_tag }}
-                </div>
-                <div class="field-body">
-                    <p class="control">
-                        {{ field }}
-                    </p>
-                </div>
+            <div class="field ">
+                {{ field.label_tag }}
+                <p class="control">
+                    {{ field }}
+                </p>
+                <p class="help">{{ field.help_text }}</p>
+                {% for error in field.errors %}
+                    <p class="help is-danger">{{ error }}</p>
+                {% endfor %}
             </div>
             {% endfor %}
             <div class="field">
