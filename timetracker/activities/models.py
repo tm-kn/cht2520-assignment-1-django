@@ -7,6 +7,9 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Activity(models.Model):
+    """
+    Represent a single activity.
+    """
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         models.PROTECT,
@@ -33,6 +36,7 @@ class Activity(models.Model):
         }
 
     def clean(self):
+        # Validate end datetime is not before start datetime.
         if self.end_datetime and self.start_datetime \
                 and self.end_datetime <= self.start_datetime:
             raise ValidationError({
@@ -42,10 +46,16 @@ class Activity(models.Model):
 
     @property
     def duration(self):
+        """
+        Get duration of the activity.
+        """
         end_datetime = self.end_datetime or timezone.now()
         return end_datetime - self.start_datetime
 
     def get_duration_display(self):
+        """
+        Get duration formatted as a string.
+        """
         duration_seconds = self.duration.total_seconds()
         hours = int(duration_seconds / 3600)
         minutes = int((duration_seconds % 3600) / 60)
@@ -53,24 +63,42 @@ class Activity(models.Model):
 
     @property
     def start_date(self):
+        """
+        Get a date object of a start date without time.
+        """
         return self.start_datetime.date()
 
     @property
     def start_time(self):
+        """
+        Get a start time on its own without a date.
+        """
         return self.start_datetime.time()
 
     @property
     def end_time(self):
+        """
+        Get an end time on its own without a date.
+        """
         if self.end_datetime:
             return self.end_datetime.time()
 
     def get_absolute_url(self):
+        """
+        Get a URL to the detail page of this particular object.
+        """
         return reverse('activities:detail', args=[self.id])
 
     def is_active(self):
+        """
+        Check if active is active.
+        """
         return self.end_datetime is None
 
     def stop(self):
+        """
+        Stop activity if it is active.
+        """
         if not self.is_active():
             raise RuntimeError('Activity must be active in order to stop it')
         # If activity is less than a minute, delete it

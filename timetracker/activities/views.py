@@ -16,6 +16,10 @@ from timetracker.activities.models import Activity
 
 
 class ActivityQuerySetMixin:
+    """
+    Constraint queryset to return activities only created by the
+    current user.
+    """
     model = Activity
 
     def get_queryset(self):
@@ -23,10 +27,16 @@ class ActivityQuerySetMixin:
 
 
 class ActivitySingleObjectMixin(ActivityQuerySetMixin, SingleObjectMixin):
+    """
+    Get SingleObjectMixin with constraints of ActivityQuerysetMixin.
+    """
     pass
 
 
 class ActivityCreateView(LoginRequiredMixin, CreateView):
+    """
+    Create a new activity.
+    """
     form_class = ActivityForm
     template_name = 'activities/activity_create.html'
     success_url = reverse_lazy('activities:list')
@@ -43,6 +53,10 @@ class ActivityCreateView(LoginRequiredMixin, CreateView):
 
 
 class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
+    """
+    List and serach the activities.
+    """
+
     def get_queryset(self):
         start_of_range = self.filter_form.cleaned_data.get('start_date')
         end_of_range = self.filter_form.cleaned_data.get('end_date')
@@ -68,6 +82,9 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
         return qs
 
     def get_filter_form(self):
+        """
+        Get a form object of the filters.
+        """
         filter_form_data = self.request.GET.copy()
         filter_form_data.setdefault(
             'start_date',
@@ -76,47 +93,60 @@ class ActivityListView(LoginRequiredMixin, ActivityQuerySetMixin, ListView):
         return ActivityFilterForm(filter_form_data)
 
     def get(self, request, *args, **kwargs):
+        # Initialise filter form on the get request.
         self.filter_form = self.get_filter_form()
         self.filter_form.is_valid()
         return super().get(request, *args, **kwargs)
 
-    def get_search_query(self):
-        return self.request
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add filter form to the template context so it can be
+        # rendered on the index template.
         context['filter_form'] = self.filter_form
         return context
 
 
 class ActivityDetailView(LoginRequiredMixin, ActivitySingleObjectMixin,
                          DetailView):
+    """
+    Display information about singular activity.
+    """
     pass
 
 
 class ActivityUpdateView(LoginRequiredMixin, ActivitySingleObjectMixin,
                          SingleObjectTemplateResponseMixin, BaseUpdateView):
+    """
+    Update an existing activity.
+    """
     form_class = ActivityForm
     template_name = 'activities/activity_update.html'
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, _('Successfuly updated an activity.'))
+        messages.success(self.request, _('Successfully updated an activity.'))
         return response
 
 
 class ActivityStopView(ActivitySingleObjectMixin, View):
+    """
+    Stop an active activity.
+    """
+
     def post(self, *args, **kwargs):
         obj = self.get_object()
         obj.stop()
-        messages.success(self.request, _('Successfuly stopped an activity.'))
+        messages.success(self.request, _('Successfully stopped an activity.'))
         return redirect('activities:list')
 
 
 class ActivityDeleteView(ActivitySingleObjectMixin, DeleteView):
+    """
+    Delete an activity object.
+    """
     success_url = reverse_lazy('activities:list')
 
     def delete(self, request, *args, **kwargs):
         response = super().delete(request, *args, **kwargs)
-        messages.success(self.request, _('Successfuly deleted an activity'))
+        messages.success(self.request, _('Successfully deleted an activity'))
         return response
