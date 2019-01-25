@@ -7,6 +7,5 @@ export default () => {
         enableTime: true,
     });
 
-
     flatpickr('.js-date-picker');
 };

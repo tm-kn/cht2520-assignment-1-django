@@ -1,4 +1,4 @@
-// Inspired from https://bulma.io/documentation/components/navbar/
+// Inspired by https://bulma.io/documentation/components/navbar/
 
 export default function() {
     // Get all "navbar-burger" elements

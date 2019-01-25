@@ -4,7 +4,6 @@ const confirmDeletion = ev => {
     }
 }
 
-
 export default () => {
     document.querySelectorAll('.js-delete-button').forEach(v => {
         v.addEventListener('click', confirmDeletion);
